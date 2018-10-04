@@ -1,6 +1,5 @@
 -----Compte rendu des programmes employes dans le cadre du Stage de M2 de recherche portant sur la dynamique atmosphérique de Saturne par Hugues Delattre-----
 
-***** Pour toute questions, contacter hdelattre@hotmail.fr *****
 
 
  * Ce fichier README.txt comporte une consigne, un inventaire des objects, une rapide description des dossiers et enfin une rapide description de l'utilisation de chaque code. Il est très FORTEMENT conseillé de lire au minimum la partie consigne pour s'épargner la peine de comprendre par où commencer et lire les codes dans le mauvais ordre de manière indigeste ;).
