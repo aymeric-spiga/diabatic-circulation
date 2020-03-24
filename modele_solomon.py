@@ -23,12 +23,18 @@ time_step="3540,3560"
 #"3570,3600"=histins195 (330-360) correspond a DYNAMICO-195
 #"3560,3590"=histins195 (320-350) correspond a DYNAMICO-170
 
+infz=16     #borne inf de Z ###0
+topz=56     #borne sup de Z ###64
+
+nn=1        #Indice pour retirer les poles sur les latitudes
 
 # -> Recuperation des variables dans le fichier moyennes zonalement avec ls corrige
 
 teta,lon,lat,zmod,t = pp(file=fff,var="teta",t=time_step,x="-180,180",verbose=True,changetime="correctls").getfd()
-zdtsw= pp(file=fff,var="zdtsw",t=time_step,x="-180,180",verbose=True,changetime="correctls").get()
-zdtlw= pp(file=fff,var="zdtlw",t=time_step,x="-180,180",verbose=True,changetime="correctls").get()
+zdtsw= pp(file=fff,var="zdtsw",t=time_step,x="-180,180",verbose=True,changetime="correctls").getf()
+zdtlw= pp(file=fff,var="zdtlw",t=time_step,x="-180,180",verbose=True,changetime="correctls").getf()
+Q = zdtsw + zdtlw
+Q = Q[infz:topz,nn:-nn]
 pmod= pp(file=fff,var="p",t=time_step,x="-180,180",verbose=True,changetime="correctls").get()
 tempmod= pp(file=fff,var="temp",t=time_step,x="-180,180",verbose=True,changetime="correctls").get()
 psurf= pp(file=fff,var="ps",t=time_step,x="-180,180",verbose=True,changetime="correctls").get()
@@ -53,10 +59,6 @@ psurf= pp(file=fff,var="ps",t=time_step,x="-180,180",verbose=True,changetime="co
 ##10Pa=0.1mbar=45
 ##1Pa=0.01mbar=56  (haut stratosphere/mesosphere)
 
-infz=16     #borne inf de Z ###0
-topz=56     #borne sup de Z ###64
-
-nn=1        #Indice pour retirer les poles sur les latitudes
 lat=lat[nn:-nn]     #On retire les poles (sinon cosphi -> 0 et division par 0)
 phi = lat*np.pi/180.
 sinphi = np.sin(phi)
@@ -64,8 +66,8 @@ cosphi = np.cos(phi)   #Transformation des latitudes en phi
 
 #Decoupe de l'altitude et creation du champ de taux radiatif
 zp=zmod[infz:topz]
-Qrad=zdtsw+zdtlw
-Q=Qrad.f[infz:topz,nn:-nn]
+#Qrad=zdtsw+zdtlw
+#Q=Qrad.f[infz:topz,nn:-nn]
 
 
 ###Creation d'un champ de pression et temperature a partir de Z et teta
