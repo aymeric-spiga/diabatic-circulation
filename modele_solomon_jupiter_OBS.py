@@ -382,14 +382,66 @@ plt.savefig('Vitesses_OBS_aero_skewed_Zhang_BAS.eps', format='eps')
 #plt.xlabel('Latitude')
 #plt.gca().invert_yaxis()
 
-#plt.figure()
-#plt.contourf(lat,zp,psy*ro/cosphi,levels=np.arange(-np.max(abs(psy*ro/cosphi)),np.max(abs(psy*ro/cosphi)),step=np.max(abs(psy*ro/cosphi))/100.),cmap=plt.cm.seismic)
-#plt.title('Mass streamfunction' %time_step) 
+plt.figure()
+
+##plt.contourf(lat,zp,psy*ro/cosphi,levels=np.arange(-np.max(abs(psy*ro/cosphi)),np.max(abs(psy*ro/cosphi)),step=np.max(abs(psy*ro/cosphi))/100.),cmap=plt.cm.seismic)
+#plt.contourf(lat,zp/100,np.log10(psy*ro/cosphi)) #,levels=np.arange(-1.e2,1.e2,step=1) ,cmap=plt.cm.gist_stern) #seismic)
+##plt.contourf(lat,zp/100,psy*ro/cosphi,locator=ticker.MaxNLocator(100), aspect='auto',origin='lower' ,cmap=plt.cm.seismic)
+#CS=plt.contour(lat,zp/100,psy*ro/cosphi,levels=np.arange(-1e2,1.e2,step=10),colors='black')
+##CS=plt.contour(lat,zp/100,psy*ro/cosphi,levels=np.round(np.logspace(0.1,100,10)),colors='black')
+
+
+
+
+
+
+lev = [\
+-1e3,\
+-5e2,\
+-1e2,\
+-5e1,\
+-1e1,\
+-5e0,\
+-1e0,\
+-5e-1,\
+-1e-1,\
++1e-1,\
++5e-1,\
++1e0,\
++5e0,\
++1e1,\
++5e1,\
++1e2,\
++5e2,\
++1e3]
+
+lev = [\
+-5e1,\
+-1e1,\
+-5e0,\
+-1e0,\
+-5e-1,\
++5e-1,\
++1e0,\
++5e0,\
++1e1,\
++5e1]
+
+CS=plt.contour(lat,zp/100,psy*ro/cosphi,levels=lev,colors='black')
+plt.clabel(CS, CS.levels, inline=False, fmt="%.1f", fontsize=10)
+
+fifi = psy*ro/cosphi
+fifi[fifi <= lev[0]] = lev[0]
+fifi[fifi >= lev[-1]] = lev[-1]
+
+plt.contourf(lat,zp/100,fifi,levels=lev,cmap=plt.cm.seismic)
+
+plt.title('Mass streamfunction') 
 #plt.colorbar()
-#plt.yscale('log')
-#plt.ylabel('Pressure (Pa)')
-#plt.xlabel('Latitude')
-#plt.gca().invert_yaxis()
+plt.yscale('log')
+plt.ylabel('Pressure (mbar)')
+plt.xlabel('Latitude')
+plt.gca().invert_yaxis()
 
 #plt.figure()
 #plt.quiver(lat[1:-2],z,v_next[:,1:-2],w_next[:,1:-2]*1000.)#,cmap=plt.cm.seismic)
