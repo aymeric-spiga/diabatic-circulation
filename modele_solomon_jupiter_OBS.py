@@ -443,6 +443,9 @@ plt.ylabel('Pressure (mbar)')
 plt.xlabel('Latitude')
 plt.gca().invert_yaxis()
 
+
+plt.gca().set_ylim([200,1])
+
 #plt.figure()
 #plt.quiver(lat[1:-2],z,v_next[:,1:-2],w_next[:,1:-2]*1000.)#,cmap=plt.cm.seismic)
 #plt.title('Vectors Ls=%s' %time_step) 
